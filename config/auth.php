@@ -46,6 +46,33 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        'admin-api' => [
+            'driver' => 'token',
+            'provider' => 'admins',
+            'hash' => false,
+        ],
+        'student' => [
+            'driver' => 'session',
+            'provider' => 'students',
+        ],
+        'student-api' => [
+            'driver' => 'token',
+            'provider' => 'students',
+            'hash' => false,
+        ],
+        'teacher' => [
+            'driver' => 'session',
+            'provider' => 'teachers',
+        ],
+        'teacher-api' => [
+            'driver' => 'token',
+            'provider' => 'teacher',
+            'hash' => false,
+        ],
     ],
 
     /*
@@ -69,6 +96,18 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+        'students' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Student::class,
+        ],
+        'teachers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Teacher::class,
         ],
 
         // 'users' => [
@@ -98,6 +137,18 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
+        ],
+        'students' => [
+            'provider' => 'students',
+            'table' => 'password_resets',
+            'expire' => 50,
+            'throttle' => 50,
+        ],
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 45,
+            'throttle' => 45,
         ],
     ],
 

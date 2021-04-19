@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Semester;
+use App\Models\Setting;
+use App\Models\Year;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,5 +28,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        $year = Year::where('active', 1)->first();
+        $setting = Setting::first();
+        $semester = Semester::where('active', 1)->first();
+        View::share(['current_year' => $year, 'setting' => $setting, 'current_semester' => $semester]);
     }
 }
