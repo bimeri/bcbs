@@ -42,11 +42,7 @@ We would like to extend our thanks to the following sponsors for funding Laravel
 - **[Many](https://www.many.co.uk)**
 - **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
 - **[DevSquad](https://devsquad.com)**
-<<<<<<< HEAD
 - **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-=======
-- **[Curotec](https://www.curotec.com/)**
->>>>>>> 0ba2c164f435d7079af88481321645c86080743c
 - **[OP.GG](https://op.gg)**
 
 ## Contributing
