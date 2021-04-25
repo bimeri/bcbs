@@ -29,7 +29,7 @@
                   <a class="right hide-on-med-and-down w3-small w3-padding"><i class="fa fa-envelope white-text"></i><span class="orange-text sty">0</span></a>
               <ul id="nav-mobile" class="hide-on-med-and-down" style="margin-left: 120px">
                 <li><a href="{{ route('admin.home') }}" class="name">{{ $setting->school_name }} &nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-chevron-right w3-large"></i></a></li>
-                <li><a href="#" class="term">{{ $current_semester->name }} {{ $current_year->name }}</a></li>
+                <li><a href="#" class="term"> {{ auth::user()->lang == 'fr' ? "premier semestre": $current_semester->name}} {{ $current_year->name }}</a></li>
               </ul>
 
               <ul id="nav-mobile small" class="hide-on-med-and-up">
@@ -41,37 +41,37 @@
         <div class="w3-border w3-padding dropdownc dropbtn right"  id="myDropdown">
             <ul class="mydwn">
                 <a class="hide-on-med-and-up">
-                    <span class="fa fa-bell teal-text" id="span-in">&nbsp;&nbsp;&nbsp; {{ __('messages.layout_messages') }} <b class="orange-text">0</b></span>
+                    <span class="fa fa-bell teal-text" id="span-in">&nbsp;&nbsp;&nbsp; {{ __('messages.profile') }} <b class="orange-text">0</b></span>
                 </a>
                 <a class="hide-on-med-and-up">
-                    <span class="fa fa-envelope teal-text" id="span-in">&nbsp;&nbsp;&nbsp; {{ __('messages.layout_notification') }} <b class="orange-text">0</b></span>
+                    <span class="fa fa-envelope teal-text" id="span-in">&nbsp;&nbsp;&nbsp; {{ __('messages.notification') }} <b class="orange-text">0</b></span>
                 </a><hr class="hide-on-med-and-up coc">
                 <a href="#">
-                    <span class="mdi-action-account-circle" id="span-in">&nbsp;{{ __('messages.layout_profile') }}
+                    <span class="mdi-action-account-circle" id="span-in">&nbsp;{{ __('messages.profile') }}
                     </span>
                 </a><hr class="coc">
                 <a href="#">
-                    <span class="mdi-content-create" id="span-in">&nbsp;{{ __('messages.change_password') }}
+                    <span class="mdi-content-create" id="span-in">&nbsp;{{ __('passwords.change_password') }}
                     </span>
                 </a><hr class="coc">
                 <a href="#">
-                    <span class="mdi-action-supervisor-account" id="span-in">&nbsp;{{ __('messages.user_account') }}
+                    <span class="mdi-action-supervisor-account" id="span-in">&nbsp;{{ __('auth.user_account') }}
                     </span>
                 </a><hr class="coc">
                     <form action="{{ route('language.english') }}" method="post" class="w3-padding">@csrf
                         <button class="btn default waves-effect waves-green" type="submit">
-                            <span class="mdi-content-create" id="span-in">&nbsp;<img src="{{ URL::asset('image/uk.png') }}" alt="flag" height="20" width="20"> English @if(auth()->user()->lang == 'en')<i class="fa fa-check w3-small green-text"></i>@endif</span>
+                            <span class="mdi-content-create" id="span-in">&nbsp;<img src="{{ URL::asset('image/uk.png') }}" alt="flag" height="20" width="20"> {{ __('messages.english') }} @if(auth()->user()->lang == 'en')<i class="fa fa-check w3-small green-text"></i>@endif</span>
                         </button>
                     </form>
                      <form action="{{ route('language.french') }}" method="post" class="w3-padding">@csrf
                             <button class="btn default waves-effect waves-green" type="submit">
-                                <span class="mdi-content-create" id="span-in">&nbsp;<img src="{{ URL::asset('image/fr.png') }}" alt="flag" height="20" width="20"> French @if(auth()->user()->lang == 'fr') <i class="fa fa-check w3-small green-text"></i>@endif</span>
+                                <span class="mdi-content-create" id="span-in">&nbsp;<img src="{{ URL::asset('image/fr.png') }}" alt="flag" height="20" width="20"> {{ __('messages.french') }} @if(auth()->user()->lang == 'fr') <i class="fa fa-check w3-small green-text"></i>@endif</span>
                             </button>
                     </form>
             </ul>
             <hr class="coc" style="margin-top:-20px">
             <a href="{{ route('admin.logout') }}">
-                <strong id="dropdown-logout"><i class="fa fa-power-off"></i>&nbsp;{{ __('messages.layout_logout') }} {{ auth()->user()->first_name }}</strong>
+                <strong id="dropdown-logout"><i class="fa fa-power-off"></i>&nbsp;{{ __('messages.logout') }} {{ auth()->user()->first_name }}</strong>
             </a>
          </div>
 
@@ -107,22 +107,22 @@
             </li>
 
                 <li>
-            <div class="collapsible-header waves-effect waves-teal" onclick="fees()" @if( Request::is('fees/create', 'expense/create', 'admin/collect_fees', 'scholarship/create', 'admin/fee_statistics', 'scholarship/student', 'expense/view', 'fees/report', 'admin/collect/fees', 'admin/fees/statistics', 'student/scholarship/report', 'student/scholarship/get', 'admin/income_statetment', 'admin/income_statetments', 'income/detail', 'expense/creates', 'admin/fees/ajax/create', 'fees/control'))  style="background-color: #ade7d9" @endif> &nbsp;<i class="fa fa-money-bill-wave-alt cyan-text w3-small"></i> Fees and Expenses&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down right w3-small" id="fee"></i></div>
-                <div class="collapsible-body">
-                    <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
-                        <li><a href="" class="teal-text"  @if( Request::is('fees/create', 'admin/fees/ajax/create'))  style="background-color: #e5e9e8" @endif  onclick="load()">Create Fee Type</a></li>
-                        <li><a href="" class="teal-text" @if( Request::is('expense/create', 'expense/creates'))  style="background-color: #e5e9e8" @endif  onclick="load()">Create/record Expense</a></li>
-                        <li><a href="" class="teal-text" @if(Request::is('scholarship/create')) style="background-color: #e5e9e8" @endif  onclick="load()">Give Scholarship</a></li>
-                        <li><a href="" class="teal-text" @if( Request::is('admin/collect_fees', 'admin/fee_statistics', 'scholarship/student', 'admin/collect/fees'))  style="background-color: #e5e9e8" @endif  onclick="load()">Receive Fees</a></li>
-                        <li><a href="" class="teal-text" @if(Request::is('expense/view')) style="background-color: #e5e9e8" @endif  onclick="load()">view/Edit expense</a></li>
+                    <div class="collapsible-header waves-effect waves-teal" onclick="fees()" @if( Request::is('fees/create', 'expense/create', 'admin/collect_fees', 'scholarship/create', 'admin/fee_statistics', 'scholarship/student', 'expense/view', 'fees/report', 'admin/collect/fees', 'admin/fees/statistics', 'student/scholarship/report', 'student/scholarship/get', 'admin/income_statetment', 'admin/income_statetments', 'income/detail', 'expense/creates', 'admin/fees/ajax/create', 'fees/control'))  style="background-color: #ade7d9" @endif> &nbsp;<i class="fa fa-money-bill-wave-alt cyan-text w3-small"></i> Fees and Expenses&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down right w3-small" id="fee"></i></div>
+                    <div class="collapsible-body">
+                        <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
+                            <li><a href="" class="teal-text"  @if( Request::is('fees/create', 'admin/fees/ajax/create'))  style="background-color: #e5e9e8" @endif  onclick="load()">Create Fee Type</a></li>
+                            <li><a href="" class="teal-text" @if( Request::is('expense/create', 'expense/creates'))  style="background-color: #e5e9e8" @endif  onclick="load()">Create/record Expense</a></li>
+                            <li><a href="" class="teal-text" @if(Request::is('scholarship/create')) style="background-color: #e5e9e8" @endif  onclick="load()">Give Scholarship</a></li>
+                            <li><a href="" class="teal-text" @if( Request::is('admin/collect_fees', 'admin/fee_statistics', 'scholarship/student', 'admin/collect/fees'))  style="background-color: #e5e9e8" @endif  onclick="load()">Receive Fees</a></li>
+                            <li><a href="" class="teal-text" @if(Request::is('expense/view')) style="background-color: #e5e9e8" @endif  onclick="load()">view/Edit expense</a></li>
 
-                        <li><a href="" class="teal-text"  @if(Request::is('fees/report', 'admin/fees/statistics')) style="background-color: #e5e9e8" @endif  onclick="load()">Fees Report</a></li>
-                        <li><a href="" class="teal-text" @if(Request::is('fees/control')) style="background-color: #e5e9e8" @endif onclick="load()">Fees Controlled</a></li>
-                        <li><a href="" class="teal-text" @if(Request::is('student/scholarship/report', 'student/scholarship/get')) style="background-color: #e5e9e8" @endif>Report Scholarship</a></li>
-                        <li><a href="" class="teal-text" @if(Request::is('admin/income_statetment', 'admin/income_statetments', 'income/detail')) style="background-color: #e5e9e8" @endif>Income Statement</a></li>
-                        <li><a href="#" class="teal-text">Print Receipts</a></li>
-                    </ul>
-                </div>
+                            <li><a href="" class="teal-text"  @if(Request::is('fees/report', 'admin/fees/statistics')) style="background-color: #e5e9e8" @endif  onclick="load()">Fees Report</a></li>
+                            <li><a href="" class="teal-text" @if(Request::is('fees/control')) style="background-color: #e5e9e8" @endif onclick="load()">Fees Controlled</a></li>
+                            <li><a href="" class="teal-text" @if(Request::is('student/scholarship/report', 'student/scholarship/get')) style="background-color: #e5e9e8" @endif>Report Scholarship</a></li>
+                            <li><a href="" class="teal-text" @if(Request::is('admin/income_statetment', 'admin/income_statetments', 'income/detail')) style="background-color: #e5e9e8" @endif>Income Statement</a></li>
+                            <li><a href="#" class="teal-text">Print Receipts</a></li>
+                        </ul>
+                    </div>
                 </li>
 
                 <li>

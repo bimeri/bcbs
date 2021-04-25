@@ -23,8 +23,8 @@ Route::get('/', function () {
 });
 Route::get('/login', [AuthController::class, 'welcomePage'])->name('login');
 
-Route::post('language/french', [LanguageController::class, 'changeToFrench'])->name('language.french');
-Route::post('language/english', [LanguageController::class, 'changeToEnglish'])->name('language.english');
+Route::post('admin/french', [AdminController::class, 'adminChangeToFrench'])->name('language.french');
+Route::post('admin/english', [AdminController::class, 'adminChangeToEnglish'])->name('language.english');
 
 Route::get('admin_logout', [AuthController::class, 'adminLogout'])->name('admin.logout');
 Route::get('student_logout', [AuthController::class, 'studentLogout'])->name('student.logout');
