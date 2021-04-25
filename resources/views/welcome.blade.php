@@ -25,7 +25,11 @@
         @endif
         @if(Auth::guard('admin')->check())
         <script>
+<<<<<<< HEAD
           window.location.href = "{{route('admin.home')}}";
+=======
+          window.location="admin_home";
+>>>>>>> 0ba2c164f435d7079af88481321645c86080743c
         </script>
         @endif
         @if(Auth::guard('teacher')->check())
