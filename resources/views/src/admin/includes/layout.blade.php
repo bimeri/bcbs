@@ -17,6 +17,9 @@
             .active-link{
                 background-color: #ccc !important;
             }
+            i.i{
+                position: fixed; margin-top: -25px; left: 80%;
+            }
         </style>
         @yield('style')
     </head>
@@ -29,12 +32,14 @@
                   <a class="right hide-on-med-and-down w3-small w3-padding"><i class="fa fa-envelope white-text"></i><span class="orange-text sty">0</span></a>
               <ul id="nav-mobile" class="hide-on-med-and-down" style="margin-left: 120px">
                 <li><a href="{{ route('admin.home') }}" class="name">{{ $setting->school_name }} &nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-chevron-right w3-large"></i></a></li>
-                <li><a href="#" class="term"> {{ auth::user()->lang == 'fr' ? "premier semestre": $current_semester->name}} {{ $current_year->name }}</a></li>
+                <li><a href="#" class="term"> @include('src.admin.includes.current_sem_year')</a></li>
               </ul>
 
               <ul id="nav-mobile small" class="hide-on-med-and-up">
                 <li style="margin-left: 20px; margin-top: 16px; position: absolute;"><label class="name white-text w3-medium">{{ $setting->school_name }}</label></li>
-                <li style="margin-top: -17px !important; margin-left:75px; position: absolute;"><label class="term black-text w3-small">{{ $current_semester->name }} {{ $current_year->name }}</label></li>
+                <li style="margin-top: -17px !important; margin-left:75px; position: absolute;">
+                    <label class="term black-text w3-small">@include('src.admin.includes.current_sem_year')</label>
+                </li>
               </ul>
             </div>
         </nav>
@@ -96,123 +101,113 @@
     </li><hr style="margin-top: 43px !important; border-top:1px solid rgb(60, 182, 182)">
         <ul class="collapsible w3-ul navbar-fixed" style="margin-top:-15px">
             <li>
-                <div class="collapsible-header waves-effect waves-teal" onclick="roles()" @if( Request::is('admin/role', 'admin/add_user', 'view_roles/'.request()->route("id").'', 'edit_user/'.request()->route("id").'', 'admin/edit_role/'.request()->route("id").'', 'admin/all_user'))  style="background-color: #ade7d9" @endif ><i class="fa fa-user teal-text w3-small"></i>{{ __('messages.manage_role_permission') }}<i class="fa fa-chevron-down right w3-small" id="role"></i></div>
+                <div class="collapsible-header waves-effect waves-teal" onclick="classes()" @if(Request::is('admin/create/class', 'admin/create/subclass', 'admin/view/class', 'admin/getclass')) style="background-color: #ade7d9" @endif><i class="fa fa-asterisk orange-text w3-small"></i> {{ __('messages.manage_level') }}</div><i class="fa fa-chevron-down w3-small i" id="class"></i>
                 <div class="collapsible-body">
                     <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
-                        <li><a href="" @if( Request::is('admin/role', 'add_user/'.request()->route("id").'', 'admin/edit_role/'.request()->route("id").'')) style="background-color:#e5e9e8" @endif class="teal-text"  onclick="load()"> &nbsp;{{ __('messages.add_role') }}</a></li>
-                        <li><a href="" @if( Request::is('admin/add_user', 'edit_user/'.request()->route("id").'')) style="background-color:#e5e9e8" @endif  onclick="load()" class="teal-text">{{ __('messages.add_user') }}</a></li>
-                        <li><a href="" @if( Request::is('admin/all_user')) style="background-color:#e5e9e8" @endif class="teal-text"  onclick="load()">{{ __('messages.see_all_user') }}</a></li>
+                        <li><a href="" class="teal-text"  @if( Request::is('admin/create/class','admin/getclass'))  style="background-color: #e5e9e8" @endif  onclick="load()">{{ __('messages.add_level') }}</a></li>
+                        <li><a href="" class="teal-text"  @if( Request::is('admin/view/class'))  style="background-color: #e5e9e8" @endif  onclick="load()">{{ __('messages.all_level') }}</a></li>
                     </ul>
                 </div>
             </li>
 
-                <li>
-                    <div class="collapsible-header waves-effect waves-teal" onclick="fees()" @if( Request::is('fees/create', 'expense/create', 'admin/collect_fees', 'scholarship/create', 'admin/fee_statistics', 'scholarship/student', 'expense/view', 'fees/report', 'admin/collect/fees', 'admin/fees/statistics', 'student/scholarship/report', 'student/scholarship/get', 'admin/income_statetment', 'admin/income_statetments', 'income/detail', 'expense/creates', 'admin/fees/ajax/create', 'fees/control'))  style="background-color: #ade7d9" @endif> &nbsp;<i class="fa fa-money-bill-wave-alt cyan-text w3-small"></i> Fees and Expenses&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down right w3-small" id="fee"></i></div>
-                    <div class="collapsible-body">
-                        <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
-                            <li><a href="" class="teal-text"  @if( Request::is('fees/create', 'admin/fees/ajax/create'))  style="background-color: #e5e9e8" @endif  onclick="load()">Create Fee Type</a></li>
-                            <li><a href="" class="teal-text" @if( Request::is('expense/create', 'expense/creates'))  style="background-color: #e5e9e8" @endif  onclick="load()">Create/record Expense</a></li>
-                            <li><a href="" class="teal-text" @if(Request::is('scholarship/create')) style="background-color: #e5e9e8" @endif  onclick="load()">Give Scholarship</a></li>
-                            <li><a href="" class="teal-text" @if( Request::is('admin/collect_fees', 'admin/fee_statistics', 'scholarship/student', 'admin/collect/fees'))  style="background-color: #e5e9e8" @endif  onclick="load()">Receive Fees</a></li>
-                            <li><a href="" class="teal-text" @if(Request::is('expense/view')) style="background-color: #e5e9e8" @endif  onclick="load()">view/Edit expense</a></li>
-
-                            <li><a href="" class="teal-text"  @if(Request::is('fees/report', 'admin/fees/statistics')) style="background-color: #e5e9e8" @endif  onclick="load()">Fees Report</a></li>
-                            <li><a href="" class="teal-text" @if(Request::is('fees/control')) style="background-color: #e5e9e8" @endif onclick="load()">Fees Controlled</a></li>
-                            <li><a href="" class="teal-text" @if(Request::is('student/scholarship/report', 'student/scholarship/get')) style="background-color: #e5e9e8" @endif>Report Scholarship</a></li>
-                            <li><a href="" class="teal-text" @if(Request::is('admin/income_statetment', 'admin/income_statetments', 'income/detail')) style="background-color: #e5e9e8" @endif>Income Statement</a></li>
-                            <li><a href="#" class="teal-text">Print Receipts</a></li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li>
-                <div class="collapsible-header waves-effect waves-teal" onclick="sectors()"  @if( Request::is('admin/sector', 'admin/background', 'admin/view/background', 'admin/view/sector'))  style="background-color: #ade7d9" @endif> &nbsp;<i class="fa fa-list red-text w3-small"></i> {{ __('messages.sector_background') }}&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down right w3-small" id="sector"></i></div>
-                    <div class="collapsible-body">
-                        <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
-                            <li><a href="" class="teal-text"  @if( Request::is('admin/sector'))  style="background-color: #e5e9e8" @endif  onclick="load()">{{ __('messages.create_sector') }}</a></li>
-                            <li><a href="" class="teal-text"  @if( Request::is('admin/background'))  style="background-color: #e5e9e8" @endif  onclick="load()">{{ __('messages.create_background') }}</a></li>
-                            <li><a href="" class="teal-text"  @if( Request::is('admin/view/sector'))  style="background-color: #e5e9e8" @endif  onclick="load()">{{ __('messages.all_sector') }}</a></li>
-                            <li><a href="" class="teal-text"  @if( Request::is('admin/view/background'))  style="background-color: #e5e9e8" @endif  onclick="load()">{{ __('messages.all_background') }}</a></li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li>
-            <div class="collapsible-header waves-effect waves-teal" onclick="classes()" @if(Request::is('admin/create/class', 'admin/create/subclass', 'admin/view/class', 'admin/getclass')) style="background-color: #ade7d9" @endif><i class="fa fa-asterisk orange-text w3-small"></i> {{ __('messages.manage_class') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down right w3-small" id="class"></i></div>
-                <div class="collapsible-body">
-                    <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
-                        <li><a href="" class="teal-text"  @if( Request::is('admin/create/class','admin/getclass'))  style="background-color: #e5e9e8" @endif  onclick="load()">{{ __('messages.create_class') }}</a></li>
-                        <li><a href="" class="teal-text"  @if( Request::is('admin/create/subclass'))  style="background-color: #e5e9e8" @endif  onclick="load()">{{ __('messages.create_subclass') }}</a></li>
-                        <li><a href="" class="teal-text"  @if( Request::is('admin/view/class'))  style="background-color: #e5e9e8" @endif  onclick="load()">{{ __('messages.all_subclass') }}</a></li>
-                    </ul>
-                </div>
-                </li>
-
-                <li>
-            <div class="collapsible-header waves-effect waves-teal" onclick="students()"  @if(Request::is('admin/student/create', 'student/class/change', 'admin/student/list', 'admin/student', 'student/class_list', 'admin/student/subclasses')) style="background-color: #ade7d9" @endif><i class="fa fa-graduation-cap blue-text w3-small"></i> Manage Students &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down right w3-small" id="student"></i></div>
-                <div class="collapsible-body">
-                    <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
-                       <li><a href="" class="teal-text"  @if(Request::is('admin/student/create')) style="background-color: #e5e9e8" @endif onclick="load()">Enroll Student</a></li>
-                       <li><a href="" class="teal-text" @if(Request::is('admin/student/list', 'admin/student')) style="background-color: #e5e9e8" @endif onclick="load()">Class List</a></li>
-                       <li><a href="" class="teal-text" @if(Request::is('student/class_list')) style="background-color: #e5e9e8" @endif onclick="load()">Student Parent</a></li>
-                       <li><a href="" class="teal-text"  @if(Request::is('student/class/change')) style="background-color: #e5e9e8" @endif>change class</a></li>
-                    </ul>
-                </div>
-                </li>
-
-                <li>
-            <div class="collapsible-header waves-effect waves-teal" onclick="subjects()" @if(Request::is('admin/subject', 'admin/subject/all', 'admin/class/subject')) style="background-color: #ade7d9" @endif> &nbsp;<i class="fa fa-book pink-text w3-small"></i> Manage Subjects &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down right w3-small" id="subject"></i></div>
+            <li>
+                <div class="collapsible-header waves-effect waves-teal" onclick="subjects()" @if(Request::is('admin/subject', 'admin/subject/all', 'admin/class/subject')) style="background-color: #ade7d9" @endif> &nbsp;<i class="fa fa-book pink-text w3-small"></i>{{ __("messages.manage_course") }}</div><i class="fa fa-chevron-down i w3-small" id="subject"></i>
                 <div class="collapsible-body">
                     <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
                         <li><a href="" class="teal-text w3-small" @if(Request::is('admin/subject')) style="background-color: #e5e9e8" @endif  onclick="load()"> Create Subject per class</a></li>
                         <li><a href="" class="teal-text"  @if(Request::is('admin/subject/all', 'admin/class/subject')) style="background-color: #e5e9e8" @endif  onclick="load()">See all subjects</a></li>
                     </ul>
                 </div>
+            </li>
+
+            <li>
+                <div class="collapsible-header waves-effect waves-teal" onclick="roles()" @if( Request::is('admin/role', 'admin/add_user', 'view_roles/'.request()->route("id").'', 'edit_user/'.request()->route("id").'', 'admin/edit_role/'.request()->route("id").'', 'admin/all_user'))  style="background-color: #ade7d9" @endif ><i class="fa fa-user teal-text w3-small"></i>{{ __('messages.teachers') }}</div><i class="fa fa-chevron-down w3-small i" id="role"></i>
+                <div class="collapsible-body">
+                    <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
+                        <li><a href="" class="teal-text" @if(Request::is('admin/create/teacher')) style="background-color: #e5e9e8" @endif  onclick="load()">{{__("messages.add_teachers")}}</a></li>
+                        <li><a href="" class="teal-text" @if(Request::is('admin/teacher/assign', 'admin/teacher/subjects')) style="background-color: #e5e9e8" @endif  onclick="load()">{{ __("messages.course") }}</a></li>
+                        <li><a href="" class="teal-text" @if(Request::is('admin/teacher/view')) style="background-color: #e5e9e8" @endif  onclick="load()">{{ __("messages.all_teachers") }}</a></li>
+                    </ul>
+                </div>
+            </li>
+
+                <li>
+                <div class="collapsible-header waves-effect waves-teal" onclick="sectors()"  @if( Request::is('admin/sector', 'admin/background', 'admin/view/background', 'admin/view/sector'))  style="background-color: #ade7d9" @endif> &nbsp;<i class="fa fa-list red-text w3-small"></i> {{ __('messages.departments') }}</div><i class="fa fa-chevron-down w3-small i" id="sector"></i>
+                    <div class="collapsible-body">
+                        <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
+                            <li><a href="" class="teal-text"  @if( Request::is('admin/sector'))  style="background-color: #e5e9e8" @endif  onclick="load()">{{ __('messages.add_department') }}</a></li>
+                            <li><a href="" class="teal-text"  @if( Request::is('admin/background'))  style="background-color: #e5e9e8" @endif  onclick="load()">{{ __('messages.assign_student') }}</a></li>
+                            <li><a href="" class="teal-text"  @if( Request::is('admin/background'))  style="background-color: #e5e9e8" @endif  onclick="load()">{{ __('messages.student_department') }}</a></li>
+                        </ul>
+                    </div>
                 </li>
 
                 <li>
-            <div class="collapsible-header waves-effect waves-teal" onclick="change()" @if(Request::is('admin/create/teacher', 'admin/teacher/view', 'admin/teacher/assign', 'admin/teacher/subjects')) style="background-color: #ade7d9" @endif> &nbsp;<i class="fa fa-university lime-text w3-small"></i> Manage Teachers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down right w3-small" id="teacher"></i></div>
+            <div class="collapsible-header waves-effect waves-teal" onclick="students()"  @if(Request::is('admin/student/create', 'student/class/change', 'admin/student/list', 'admin/student', 'student/class_list', 'admin/student/subclasses')) style="background-color: #ade7d9" @endif><i class="fa fa-graduation-cap blue-text w3-small"></i> @lang('messages.manage_student')</div><i class="fa fa-chevron-down w3-small i" id="student"></i>
                 <div class="collapsible-body">
                     <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
-                        <li><a href="" class="teal-text" @if(Request::is('admin/create/teacher')) style="background-color: #e5e9e8" @endif  onclick="load()">Add Teacher</a></li>
-                        <li><a href="" class="teal-text" @if(Request::is('admin/teacher/assign', 'admin/teacher/subjects')) style="background-color: #e5e9e8" @endif  onclick="load()">assign Subjects</a></li>
-                        <li><a href="" class="teal-text" @if(Request::is('admin/teacher/view')) style="background-color: #e5e9e8" @endif  onclick="load()">All Teacher</a></li>
+                       <li><a href="" class="teal-text"  @if(Request::is('admin/student/create')) style="background-color: #e5e9e8" @endif onclick="load()">{{ __("messages.enroll_student") }}</a></li>
+                       <li><a href="" class="teal-text" @if(Request::is('admin/student/list', 'admin/student')) style="background-color: #e5e9e8" @endif onclick="load()">{{ __("messages.student_profile") }}</a></li>
                     </ul>
                 </div>
                 </li>
 
-                <li>
-            <div class="collapsible-header waves-effect waves-teal" onclick="expenses()" @if(Request::is('admin/create/discipline', 'admin/record/discipline', 'admin/view/discipline')) style="background-color: #ade7d9" @endif><i class="fa fa-pencil-ruler purple-text w3-small"></i> Discipline &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down right w3-small" id="expense"></i></div>
+            <li>
+                <div class="collapsible-header waves-effect waves-teal" onclick="expenses()" @if(Request::is('admin/create/discipline', 'admin/record/discipline', 'admin/view/discipline')) style="background-color: #ade7d9" @endif><i class="fa fa-skull-crossbones lime-text w3-small"></i> {{ __("messages.discipline") }}</div><i class="fa fa-chevron-down w3-small i" id="expense"></i>
                 <div class="collapsible-body">
                     <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
-                        <li><a href="" class="teal-text" @if(Request::is('admin/create/discipline')) style="background-color: #e5e9e8" @endif  onclick="load()">Create type</a></li>
-                        <li><a href="" class="teal-text" @if(Request::is('admin/record/discipline')) style="background-color: #e5e9e8" @endif  onclick="load()"> Record for Student</a></li>
-                        <li><a href="" class="teal-text" @if(Request::is('admin/view/discipline')) style="background-color: #e5e9e8" @endif  onclick="load()">View All</a></li>
+                        <li><a href="" class="teal-text" @if(Request::is('admin/create/discipline')) style="background-color: #e5e9e8" @endif  onclick="load()">{{ __("messages.create_discipline") }}</a></li>
+                        <li><a href="" class="teal-text" @if(Request::is('admin/record/discipline')) style="background-color: #e5e9e8" @endif  onclick="load()">{{ __("messages.record_discipline") }}</a></li>
+                        <li><a href="" class="teal-text" @if(Request::is('admin/view/discipline')) style="background-color: #e5e9e8" @endif  onclick="load()">{{ __("messages.discipline_statistics") }}</a></li>
                     </ul>
                 </div>
-                </li>
+            </li>
 
-                <li>
-            <div class="collapsible-header waves-effect waves-teal" onclick="results()" @if(Request::is('student/marks/record', 'student/rank', 'class/result', 'class/student/result', 'get/student/record', 'class/type/result')) style="background-color: #ade7d9" @endif><i class="fa fa-file green-text w3-small"></i> Results &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down right w3-small" id="result"></i></div>
-                    <div class="collapsible-body">
-                        <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
-                            <li><a href="" class="teal-text" @if(Request::is('student/marks/record', 'get/student/record'))style="background-color: #e5e9e8"@endif  onclick="load()">Record Mark</a></li>
-                            <li><a href="" class="teal-text" @if(Request::is('student/rank', 'class/result', 'class/student/result', 'class/type/result'))style="background-color: #e5e9e8"@endif  onclick="load()">Rank Students</a></li>
-                            <li><a href="#!" class="teal-text">Print Result</a></li>
-                            <li><a href="#!" class="teal-text">Promote Student</a></li>
-                            <li><a href="#!" class="teal-text">Print Rank Sheets</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-            <div class="collapsible-header waves-effect waves-teal" onclick="settings()" @if( Request::is('admin/school_theme', 'admin/school_profile', 'admin/more_setting', 'admin/all_setting'))   style="background-color: #ade7d9"  @endif><i class="fa fa-wrench w3-medium black-text"></i> Setting/Configuration &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-down right w3-small" id="setting"></i></div>
-                    <div class="collapsible-body">
-                        <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
-                            <li><a href="" class="teal-text" @if( Request::is('admin/school_theme', 'admin/more_setting', 'admin/all_setting'))  style="background-color:#e5e9e8" @endif onclick="load()">School theme</a></li> <!-- year, term, sequesnces -->
-                            <li><a href="" class="teal-text" @if( Request::is('admin/school_profile'))  style="background-color:#e5e9e8" @endif onclick="load()">School profile</a></li> <!-- name, motto, logo, exam/test session,  -->
-                        </ul>
-                    </div>
-                </li>
+            <li>
+                <div class="collapsible-header waves-effect waves-teal" onclick="disciplines()" @if(Request::is('admin/view/discipline')) style="background-color: #ade7d9" @endif><i class="fa fa-street-view indigo-text w3-small"></i> {{ __("messages.attendance") }}</div><i class="fa fa-chevron-down i w3-small" id="disc"></i>
+                <div class="collapsible-body">
+                    <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
+                        <li><a href="" class="teal-text" @if(Request::is('admin/create/discipline')) style="background-color: #e5e9e8" @endif  onclick="load()">{{ __("messages.current_attendance") }}</a></li>
+                        <li><a href="" class="teal-text" @if(Request::is('admin/record/discipline')) style="background-color: #e5e9e8" @endif  onclick="load()">{{ __("messages.attendance_form") }}</a></li>
+                        <li><a href="" class="teal-text" @if(Request::is('admin/view/discipline')) style="background-color: #e5e9e8" @endif  onclick="load()">{{ __("messages.attendance_history") }}</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <div class="collapsible-header waves-effect waves-teal" onclick="statistics()" @if(Request::is('admin/view/discipline')) style="background-color: #ade7d9" @endif><i class="fa fa-database purple-text w3-small"></i> {{ __("messages.statistics") }}</div><i class="fa fa-chevron-down i w3-small" id="stat"></i>
+                <div class="collapsible-body">
+                    <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
+                        <li><a href="" class="teal-text" @if(Request::is('admin/create/discipline')) style="background-color: #e5e9e8" @endif  onclick="load()">{{ __("messages.enrollment_statistics") }}</a></li>
+                        <li><a href="" class="teal-text" @if(Request::is('admin/record/discipline')) style="background-color: #e5e9e8" @endif  onclick="load()">{{ __("messages.matriculation_statistics") }}</a></li>
+                        <li><a href="" class="teal-text" @if(Request::is('admin/view/discipline')) style="background-color: #e5e9e8" @endif  onclick="load()">{{ __("messages.graduation_statistics") }}</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <div class="collapsible-header waves-effect waves-teal" onclick="results()" @if(Request::is('student/marks/record', 'student/rank', 'class/result', 'class/student/result', 'get/student/record', 'class/type/result')) style="background-color: #ade7d9" @endif><i class="fa fa-file green-text w3-small"></i>{{ __("messages.result") }}</div><i class="fa fa-chevron-down i w3-small" id="result"></i>
+                <div class="collapsible-body">
+                    <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
+                        <li><a href="" class="teal-text" @if(Request::is('student/marks/record', 'get/student/record'))style="background-color: #e5e9e8"@endif  onclick="load()">Record Mark</a></li>
+                        <li><a href="" class="teal-text" @if(Request::is('student/rank', 'class/result', 'class/student/result', 'class/type/result'))style="background-color: #e5e9e8"@endif  onclick="load()">Rank Students</a></li>
+                        <li><a href="#!" class="teal-text">Print Result</a></li>
+                        <li><a href="#!" class="teal-text">Promote Student</a></li>
+                        <li><a href="#!" class="teal-text">Print Rank Sheets</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <div class="collapsible-header waves-effect waves-teal" onclick="settings()" @if( Request::is('admin/school_theme', 'admin/school_profile', 'admin/more_setting', 'admin/all_setting'))   style="background-color: #ade7d9"  @endif><i class="fa fa-wrench w3-medium black-text"></i>{{ __("messages.settings") }}</div><i class="fa fa-chevron-down i w3-small" id="setting"></i>
+                <div class="collapsible-body">
+                    <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
+                        <li><a href="" class="teal-text" @if( Request::is('admin/school_theme', 'admin/more_setting', 'admin/all_setting'))  style="background-color:#e5e9e8" @endif onclick="load()">School theme</a></li> <!-- year, term, sequesnces -->
+                        <li><a href="" class="teal-text" @if( Request::is('admin/school_profile'))  style="background-color:#e5e9e8" @endif onclick="load()">School profile</a></li> <!-- name, motto, logo, exam/test session,  -->
+                    </ul>
+                </div>
+            </li>
+
                 <li><a href="{{ route('admin.logout') }}"  class="waves-effect waves-light red-text"  onclick="load()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="fa fa-power-off"></span> logout</a></li>
             </ul>
   </ul>

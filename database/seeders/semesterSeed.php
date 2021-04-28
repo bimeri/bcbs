@@ -18,12 +18,15 @@ class semesterSeed extends Seeder
         $semesters = [
             [
                 'name' => 'First Semester',
+                'active' => 1
             ],
             [
                 'name' => 'Second Semster',
+                'active' => 0
             ],
             [
                 'name' => 'Resit Semester',
+                'active' => 0
             ]
         ];
         foreach($semesters as $semester) {
