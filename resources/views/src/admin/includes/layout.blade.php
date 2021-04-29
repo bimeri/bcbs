@@ -143,13 +143,23 @@
                 </li>
 
                 <li>
-            <div class="collapsible-header waves-effect waves-teal" onclick="students()"  @if(Request::is('admin/student/create', 'student/class/change', 'admin/student/list', 'admin/student', 'student/class_list', 'admin/student/subclasses')) style="background-color: #ade7d9" @endif><i class="fa fa-graduation-cap blue-text w3-small"></i> @lang('messages.manage_student')</div><i class="fa fa-chevron-down w3-small i" id="student"></i>
-                <div class="collapsible-body">
-                    <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
-                       <li><a href="" class="teal-text"  @if(Request::is('admin/student/create')) style="background-color: #e5e9e8" @endif onclick="load()">{{ __("messages.enroll_student") }}</a></li>
-                       <li><a href="" class="teal-text" @if(Request::is('admin/student/list', 'admin/student')) style="background-color: #e5e9e8" @endif onclick="load()">{{ __("messages.student_profile") }}</a></li>
-                    </ul>
-                </div>
+                    <div class="collapsible-header waves-effect waves-teal" onclick="students()"  @if(Request::is('admin/student/create', 'student/class/change', 'admin/student/list', 'admin/student', 'student/class_list', 'admin/student/subclasses')) style="background-color: #ade7d9" @endif><i class="fa fa-graduation-cap blue-text w3-small"></i> @lang('messages.manage_student')</div><i class="fa fa-chevron-down w3-small i" id="student"></i>
+                    <div class="collapsible-body">
+                        <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
+                        <li><a href="" class="teal-text"  @if(Request::is('admin/student/create')) style="background-color: #e5e9e8" @endif onclick="load()">{{ __("messages.enroll_student") }}</a></li>
+                        <li><a href="" class="teal-text" @if(Request::is('admin/student/list', 'admin/student')) style="background-color: #e5e9e8" @endif onclick="load()">{{ __("messages.student_profile") }}</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="collapsible-header waves-effect waves-teal" onclick="libraries()"  @if(Request::is('admin/student/create', 'student/class/change', 'admin/student/list')) style="background-color: #ade7d9" @endif><i class="fa fa-book-reader indigo-text w3-small"></i> @lang('messages.manage_library')</div><i class="fa fa-chevron-down w3-small i" id="library"></i>
+                    <div class="collapsible-body">
+                        <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
+                        <li><a href="" class="teal-text"  @if(Request::is('admin/student/create')) style="background-color: #e5e9e8" @endif onclick="load()">{{ __("messages.add_books") }}</a></li>
+                        <li><a href="" class="teal-text" @if(Request::is('admin/student/list', 'admin/student')) style="background-color: #e5e9e8" @endif onclick="load()">{{ __("messages.view_rent") }}</a></li>
+                        </ul>
+                    </div>
                 </li>
 
             <li>
@@ -190,10 +200,7 @@
                 <div class="collapsible-body">
                     <ul class="w3-border w3-padding" style="background-color: #d1fbfc">
                         <li><a href="" class="teal-text" @if(Request::is('student/marks/record', 'get/student/record'))style="background-color: #e5e9e8"@endif  onclick="load()">Record Mark</a></li>
-                        <li><a href="" class="teal-text" @if(Request::is('student/rank', 'class/result', 'class/student/result', 'class/type/result'))style="background-color: #e5e9e8"@endif  onclick="load()">Rank Students</a></li>
-                        <li><a href="#!" class="teal-text">Print Result</a></li>
-                        <li><a href="#!" class="teal-text">Promote Student</a></li>
-                        <li><a href="#!" class="teal-text">Print Rank Sheets</a></li>
+                        <li><a href="#!" class="teal-text">Student Results</a></li>
                     </ul>
                 </div>
             </li>
@@ -209,6 +216,12 @@
             </li>
 
                 <li><a href="{{ route('admin.logout') }}"  class="waves-effect waves-light red-text"  onclick="load()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="fa fa-power-off"></span> logout</a></li>
+
+                <li>
+                    <div class="collapsible-header waves-effect waves-teal"><i class="w3-small"></i></div>
+                        <br>
+                    </div>
+                </li>
             </ul>
   </ul>
 

@@ -38,5 +38,10 @@ return [
     "all_level" => "Tous les niveaux/cours",
     "manage_course" => "Gérer les cours",
     "result" => "Résultats",
-    "settings" => "Paramètre / Configuration",
+    "settings" => "Paramètre/Configuration",
+    "manage_library" => "Gérer la bibliothèque",
+    "add_books" => "Enregistre des Livres",
+    "view_rent" => "Afficher/louer des livres",
+
+
 ];

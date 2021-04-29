@@ -39,5 +39,8 @@ return [
     "manage_course" => "Manage Courses",
     "result" => "Results",
     "settings" => "Setting/Configuration",
+    "manage_library" => "Manage Library",
+    "add_books" => "Register Books",
+    "view_rent" => "View/Rent out Books",
 
 ];

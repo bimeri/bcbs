@@ -357,3 +357,13 @@ setInterval(displayclock, 100);
                 v.className = "teal-text i fa fa-chevron-up w3-small";
             }
     }
+
+    function libraries(){
+        var v = document.getElementById("library");
+            if(v.classList.contains('fa-chevron-up')) {
+                v.className = "teal-text i fa fa-chevron-down w3-small";
+            }
+           else if(v.classList.contains('fa-chevron-down')) {
+                v.className = "teal-text i fa fa-chevron-up w3-small";
+            }
+    }
