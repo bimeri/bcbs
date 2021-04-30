@@ -247,7 +247,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'C:\\xampp\\htdocs\\Bcbss\\storage\\framework/cache/data',
+        'path' => 'C:\\xampp\\htdocs\\bcbs\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -414,12 +414,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\xampp\\htdocs\\Bcbss\\storage\\app',
+        'root' => 'C:\\xampp\\htdocs\\bcbs\\storage\\app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\xampp\\htdocs\\Bcbss\\storage\\app/public',
+        'root' => 'C:\\xampp\\htdocs\\bcbs\\storage\\app/public',
         'url' => 'http://localhost/storage',
         'visibility' => 'public',
       ),
@@ -436,7 +436,7 @@
     ),
     'links' => 
     array (
-      'C:\\xampp\\htdocs\\Bcbss\\public\\storage' => 'C:\\xampp\\htdocs\\Bcbss\\storage\\app/public',
+      'C:\\xampp\\htdocs\\bcbs\\public\\storage' => 'C:\\xampp\\htdocs\\bcbs\\storage\\app/public',
     ),
   ),
   'hashing' => 
@@ -470,13 +470,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'C:\\xampp\\htdocs\\Bcbss\\storage\\logs/laravel.log',
+        'path' => 'C:\\xampp\\htdocs\\bcbs\\storage\\logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'C:\\xampp\\htdocs\\Bcbss\\storage\\logs/laravel.log',
+        'path' => 'C:\\xampp\\htdocs\\bcbs\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -527,7 +527,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'C:\\xampp\\htdocs\\Bcbss\\storage\\logs/laravel.log',
+        'path' => 'C:\\xampp\\htdocs\\bcbs\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -584,7 +584,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'C:\\xampp\\htdocs\\Bcbss\\resources\\views/vendor/mail',
+        0 => 'C:\\xampp\\htdocs\\bcbs\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -667,7 +667,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'C:\\xampp\\htdocs\\Bcbss\\storage\\framework/sessions',
+    'files' => 'C:\\xampp\\htdocs\\bcbs\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -687,9 +687,9 @@
   array (
     'paths' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\Bcbss\\resources\\views',
+      0 => 'C:\\xampp\\htdocs\\bcbs\\resources\\views',
     ),
-    'compiled' => 'C:\\xampp\\htdocs\\Bcbss\\storage\\framework\\views',
+    'compiled' => 'C:\\xampp\\htdocs\\bcbs\\storage\\framework\\views',
   ),
   'dompdf' => 
   array (
@@ -697,10 +697,10 @@
     'orientation' => 'portrait',
     'defines' => 
     array (
-      'font_dir' => 'C:\\xampp\\htdocs\\Bcbss\\storage\\fonts/',
-      'font_cache' => 'C:\\xampp\\htdocs\\Bcbss\\storage\\fonts/',
-      'temp_dir' => 'C:\\Users\\BIMERI~1\\AppData\\Local\\Temp',
-      'chroot' => 'C:\\xampp\\htdocs\\Bcbss',
+      'font_dir' => 'C:\\xampp\\htdocs\\bcbs\\storage\\fonts/',
+      'font_cache' => 'C:\\xampp\\htdocs\\bcbs\\storage\\fonts/',
+      'temp_dir' => 'C:\\Users\\bimer\\AppData\\Local\\Temp',
+      'chroot' => 'C:\\xampp\\htdocs\\bcbs',
       'enable_font_subsetting' => false,
       'pdf_backend' => 'CPDF',
       'default_media_type' => 'screen',

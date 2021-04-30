@@ -16,7 +16,7 @@ class yearSeed extends Seeder
     {
         //
         $years = [
-                ['name' => '2020/2021'],
+                ['name' => '2020/2021', 'active' => 1],
                 ['name' => '2021/2022'],
                 ['name' => '2022/2023'],
                 ['name' => '2023/2024'],

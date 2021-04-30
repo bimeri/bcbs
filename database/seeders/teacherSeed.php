@@ -22,6 +22,7 @@ class teacherSeed extends Seeder
                'email'=>'bimerinoel@gmail.com',
                'profile'=>'image/profiles/2.png',
                'gender'=>'male',
+               'lang' => 'en',
                'date_of_birth'=>'12/17/1997',
                'password'=> bcrypt('Magaza@890'),
             ],

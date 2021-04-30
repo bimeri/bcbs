@@ -22,6 +22,7 @@ class studentSeed extends Seeder
                'email'=>'bimerinoel@gmail.com',
                'profile'=>'image/profiles/2.png',
                'gender'=>'male',
+               'lang' => 'en',
                'school_id'=>'BCB21A01',
                'date_of_birth'=>'12/17/1997',
                'password'=> bcrypt('Bimeri@89'),
